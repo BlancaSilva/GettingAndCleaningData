@@ -34,18 +34,19 @@ The next lines are for selecting only the variables corresponding to mean and st
 -meanvaluecolumns : contains the positions of all the variables with the text "mean()" in the name (which is defined as the mean values in the readme file of the data)
 -standardevcolumns : contrains the positions of all the variables with the text "std()", corresponding to standard deviation variables
 -meanandstandarvalues : data frame containing only the variables of mean values and standard deviations for each measurement (part 2 of the assignment). It takes only the columns of meanvaluecolumns and standardevcolumns from the totaldata data frame.
+-totalfiltereddata : Contains a column for subject, one for activity and all the ones of meanandstandarvalues
 
-The last of the code is the one of step 5 of the assignment. The first step will be to split the data by subject and activity:
+The last part of the code is the one of step 5 of the assignment. The first step will be to split the data by subject and activity:
 
--totalsplit: splits the totaldata data frame based on subject and activity. This returs a data frame which, for each couple (subject,activity), returns the  "train/test", "activity", "subject" and the 561 names of the variables.
+-totalsplitsubact: splits the totalfiltereddata data frame based on subject and activity. This returs a data frame which, for each couple (subject,activity), returns the  "train/test", "activity", "subject" and the 66 names of the variables.
 
 We create two new variables: partmeans and partnames. The first one will contain the mean values of all the variables for each couple, the second one will contain the information of the couple (subject, activity)
 
-The next lines are a for loop in which the mean values are calculated and substituted into partmeans and the values of subject and activity are extraced and substituted into partnames.
+The next lines are a for loop in which the mean values of each column of variables are calculated and substituted into partmeans and the values of subject and activity are extraced and substituted into partnames.
 
 Finally, we bind partnames and partmeans to obtain tablemeansorderedbysubject
 
--tablemeansorderedbysubject : this is the table of part 5 of the assignment, which contains 180 rows, one for each combination (subject, activity). There are 563 columns: "subject", "activity" and the mean values of the 561 variable. These names are assigned to the columns by means of the names() command.
+-tablemeansorderedbysubject : this is the table of part 5 of the assignment, which contains 180 rows, one for each combination (subject, activity). There are 68 columns: "subject", "activity" and the mean values of the 66 variable. These names are assigned to the columns by means of the names() command.
 
 
 
