@@ -33,26 +33,27 @@ standardevcolumns<-grep("*std[()]",names(totaldata)) #positions of the standard 
 meanandstandarvalues<-totaldata[c(meanvaluecolumns,standardevcolumns)] #select only the two
 #sets of columns found for mean and std. Extracts only the measurements on the mean and 
 #standard deviation for each measurement.
-
+totalfiltereddata<- totaldata[c(3,2, meanvaluecolumns,standardevcolumns)]
 #======================================================================================#
 
-totalsplitsubact<-split(totaldata, list(totaldata$subject,totaldata$activity)) #this is the
+totalsplitsubact<-split(totalfiltereddata, list(totalfiltereddata$subject,totalfiltereddata$activity)) 
+#this is the
 #initial table "totaldata" which has been split by two paramenters: subject and activity.
+numvariables<-dim(totalfiltereddata)[[2]]-2
 
-
-partmeans<-matrix(0, ncol=561, nrow= length(totalsplitsubact)) #This vector will contain the mean values of each
+partmeans<-matrix(0, ncol=numvariables, nrow= length(totalsplitsubact)) #This vector will contain the mean values of each
 #variable for each subject-activity couple
 partnames<-matrix(0, ncol=2, nrow=length(totalsplitsubact)) #This vector contains the information of subject and
 #activity
 
 #calculate the mean (partmeans) of all the variables for every couple subject-activity (partnames)
 for (i in 1:length(totalsplitsubact)){
-        partmeans[i,]<-(sapply(totalsplitsubact[[i]][4:564], mean))
-        partnames[i,]<-c(totalsplitsubact[[i]][1,3],totalsplitsubact[[i]][1,2])
+        partmeans[i,]<-(sapply(totalsplitsubact[[i]][3:(numvariables+2)], mean))
+        partnames[i,]<-c(totalsplitsubact[[i]][1,1],totalsplitsubact[[i]][1,2])
 }
 
 tablemeansorderedbysubject<-as.data.frame(cbind(partnames,partmeans)) #final table with: subject (column 1), activity
-#(column 2) and mean value of the variables (columns 3-564)
-names(tablemeansorderedbysubject)<-c("subject", "activity", namesfeatures)
+#(column 2) and mean value of the variables (columns 3-66)
+names(tablemeansorderedbysubject)<-names(totalfiltereddata)
 
 write.table(tablemeansorderedbysubject, "./resultpart5.txt", row.names = FALSE) 
